@@ -134,8 +134,7 @@ bmono <- function(..., constraint = c("increasing", "decreasing",
             }
         }
         args$cons.arg <- cons.arg
-        ret$dpp <- bl_mono(ret, Xfun = X_bbs,
-                           args = args)
+        ret$dpp <- bl_mono(ret, Xfun = X_bbs, args = args)
     } else {
         args <- hyper_ols(df = df, lambda = lambda,
                           intercept = intercept,
@@ -147,8 +146,7 @@ bmono <- function(..., constraint = c("increasing", "decreasing",
         ## <FIXME> Was machen wir bei kateg. Effekten? Da muesste das doch auch gehen!
         args$boundary.constraints <- boundary.constraints
         args$cons.arg$n <- cons.arg$n
-        ret$dpp <- bl_mono(ret, Xfun = X_ols,
-                           args = args)
+        ret$dpp <- bl_mono(ret, Xfun = X_ols, args = args)
     }
     return(ret)
 }
@@ -158,12 +156,22 @@ bl_mono <- function(blg, Xfun, args) {
     index <- blg$get_index()
     vary <- blg$get_vary()
 
-    newX <- function(newdata = NULL) {
+    newX <- function(newdata = NULL, prediction = FALSE) {
         if (!is.null(newdata)) {
-            stopifnot(all(names(newdata) == names(blg)))
-            stopifnot(all(class(newdata) == class(mf)))
-            mf <- newdata[,names(blg),drop = FALSE]
+            if (!all(names(blg) %in% names(newdata)))
+                stop("Variable(s) missing in ", sQuote("newdata"), ":\n\t",
+                     names(blg)[!names(blg) %in% names(newdata)])
+            if (!all(class(newdata) == class(mf)))
+                stop(sQuote("newdata"),
+                     " must have the same class as the original data:\n\t",
+                     class(mf))
+            nm <- names(blg)
+            if (any(duplicated(nm)))  ## removes duplicates
+                nm <- unique(nm)
+            mf <- newdata[, nm, drop = FALSE]
         }
+        ## this argument is currently only used in X_bbs --> bsplines
+        args$prediction <- prediction
         return(Xfun(mf, vary, args))
     }
     X <- newX()
@@ -346,7 +354,7 @@ bl_mono <- function(blg, Xfun, args) {
                     newdata <- newdata[index[[1]],,drop = FALSE]
                     index <- index[[2]]
                 }
-                X <- newX(newdata)$X
+                X <- newX(newdata, prediction = TRUE)$X
             }
             aggregate <- match.arg(aggregate)
             pr <- switch(aggregate, "sum" =
