@@ -659,8 +659,13 @@ bl_lin <- function(blg, Xfun, args) {
 
     newX <- function(newdata = NULL) {
         if (!is.null(newdata)) {
-            stopifnot(all(names(blg) %in% names(newdata)))
-            stopifnot(all(class(newdata) == class(mf)))
+            if (!all(names(blg) %in% names(newdata)))
+                stop("Variable(s) missing in ", sQuote("newdata"), ":\n\t",
+                     names(blg)[!names(blg) %in% names(newdata)])
+            if (!all(class(newdata) == class(mf)))
+                stop(sQuote("newdata"),
+                     " must have the same class as the original data:\n\t",
+                     class(mf))
             nm <- names(blg)
             if (any(duplicated(nm)))  ## removes duplicates
                 nm <- unique(nm)
