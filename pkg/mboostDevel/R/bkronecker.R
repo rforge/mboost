@@ -41,7 +41,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
 
     dpp <- function(weights) {
 
-        if (!is.null(attr(X$X1, "deriv")) || !is.null(attr(X$X2, "deriv")))
+        if (!is.null(attr(X$X1, "deriv")) || !is.null(attr(X$X2, "deriv"))) 
             stop("fitting of derivatives of B-splines not implemented")
 
         W <- matrix(weights, nrow = n1, ncol = n2)
@@ -53,7 +53,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
         XtX <- array(XtX, c(c1, c1, c2, c2))
         XtX <- mymatrix(aperm(XtX, c(1, 3, 2, 4)), nrow = c1 * c2)
 
-        ### If lambda was given in both baselearners, we
+        ### If lambda was given in both baselearners, we 
         ### directly multiply the marginal penalty matrices by lambda
         ### and then compute the total penalty as the kronecker sum.
         ### args$lambda is NA in this case and we don't compute
@@ -61,8 +61,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
         if (is.null(args$lambda)) {
 
             ### <FIXME>: is there a better way to feed XtX into lambdadf?
-            ### <FIXME>: is ncol(X$X1) + ncol(X$X2) ok or should it be rankMatrix(...)?
-            lambdadf <- df2lambda(X = diag(ncol(X$X1) + ncol(X$X2)),
+            lambdadf <- df2lambda(X = diag(rankMatrix(X$X1, method = 'qr') * rankMatrix(X$X2, method = 'qr')),
                                   df = args$df, lambda = args$lambda,
                                   dmat = K, weights = weights, XtX = XtX)
             ### </FIXME>
@@ -75,10 +74,10 @@ bl_lin_matrix <- function(blg, Xfun, args) {
         XtX <- XtX + K
 
         ### nnls
-        constr <- (!is.null(attr(X$X1, "constraint"))) +
+        constr <- (!is.null(attr(X$X1, "constraint"))) + 
                   (!is.null(attr(X$X2, "constraint")))
 
-        if (constr == 2)
+        if (constr == 2) 
             stop("only one dimension may be subject to constraints")
         constr <- constr > 0
 
@@ -235,7 +234,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
     l1 <- args1$lambda
     l2 <- args2$lambda
     if (xor(is.null(l1), is.null(l2)))
-        stop("lambda needs to be given in both baselearners combined with ",
+        stop("lambda needs to be given in both baselearners combined with ", 
              sQuote("%O%"))
     if (!is.null(l1) && !is.null(l2)) {
         ### there is no common lambda!
