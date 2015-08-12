@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for Package 'mboost'}
 
-\section{Changes in mboost version 2.4-3 (2015-03-20)}{
+\section{Changes in mboost version 2.4-3 (2015-08-12)}{
   \subsection{User-visible changes}{
     \itemize{
       \item Added documentation for \code{plot.mboost} function and moved
