@@ -134,8 +134,7 @@ bmono <- function(..., constraint = c("increasing", "decreasing",
             }
         }
         args$cons.arg <- cons.arg
-        ret$dpp <- bl_mono(ret, Xfun = X_bbs,
-                           args = args)
+        ret$dpp <- bl_mono(ret, Xfun = X_bbs, args = args)
     } else {
         args <- hyper_ols(df = df, lambda = lambda,
                           intercept = intercept,
@@ -147,8 +146,7 @@ bmono <- function(..., constraint = c("increasing", "decreasing",
         ## <FIXME> Was machen wir bei kateg. Effekten? Da muesste das doch auch gehen!
         args$boundary.constraints <- boundary.constraints
         args$cons.arg$n <- cons.arg$n
-        ret$dpp <- bl_mono(ret, Xfun = X_ols,
-                           args = args)
+        ret$dpp <- bl_mono(ret, Xfun = X_ols, args = args)
     }
     return(ret)
 }
@@ -158,25 +156,12 @@ bl_mono <- function(blg, Xfun, args) {
     index <- blg$get_index()
     vary <- blg$get_vary()
 
-    newX <- function(newdata = NULL) {
+    newX <- function(newdata = NULL, prediction = FALSE) {
         if (!is.null(newdata)) {
-            nm <- names(blg)
-            if (!all(nm %in% names(newdata)))
-                stop(sQuote("newdata"),
-                     " must contain all predictor variables,",
-                     " which were used to specify the model.")
-            if (!class(newdata) %in% c("list", "data.frame"))
-                stop(sQuote("newdata"), " must be either a data.frame or a list")
-            if (any(duplicated(nm)))  ## removes duplicates
-                nm <- unique(nm)
-            if (!all(sapply(newdata[nm], class) == sapply(mf, class)))
-                stop("Variables in ", sQuote("newdata"),
-                     " must have the same classes as in the original data set")
-            ## subset data
-            mf <- newdata[nm]
-            if (is.list(mf))
-                mf <- as.data.frame(mf)
+            mf <- check_newdata(newdata, blg, mf)
         }
+        ## this argument is currently only used in X_bbs --> bsplines
+        args$prediction <- prediction
         return(Xfun(mf, vary, args))
     }
     X <- newX()
@@ -358,7 +343,7 @@ bl_mono <- function(blg, Xfun, args) {
                     newdata <- newdata[index[[1]], , drop = FALSE]
                     index <- index[[2]]
                 }
-                X <- newX(newdata)$X
+                X <- newX(newdata, prediction = TRUE)$X
             }
             aggregate <- match.arg(aggregate)
             pr <- switch(aggregate, "sum" =

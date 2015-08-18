@@ -8,25 +8,12 @@ bl_lin_matrix <- function(blg, Xfun, args) {
     index <- blg$get_index()
     vary <- blg$get_vary()
 
-    newX <- function(newdata = NULL) {
+    newX <- function(newdata = NULL, prediction = FALSE) {
         if (!is.null(newdata)) {
-            nm <- names(blg)
-            if (!all(nm %in% names(newdata)))
-                stop(sQuote("newdata"),
-                     " must contain all predictor variables,",
-                     " which were used to specify the model.")
-            if (!class(newdata) %in% c("list", "data.frame"))
-                stop(sQuote("newdata"), " must be either a data.frame or a list")
-            if (any(duplicated(nm)))  ## removes duplicates
-                nm <- unique(nm)
-            if (!all(sapply(newdata[nm], class) == sapply(mf, class)))
-                stop("Variables in ", sQuote("newdata"),
-                     " must have the same classes as in the original data set")
-            ## subset data
-            mf <- newdata[nm]
-            if (is.list(mf))
-                mf <- as.data.frame(mf)
+            mf <- check_newdata(newdata, blg, mf, to.data.frame = FALSE)
         }
+        ## this argument is currently only used in X_bbs --> bsplines
+        args$prediction <- prediction
         return(Xfun(mf, vary, args))
     }
     X <- newX()
@@ -67,7 +54,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
         if (is.null(args$lambda)) {
 
             ### <FIXME>: is there a better way to feed XtX into lambdadf?
-            lambdadf <- df2lambda(matrix(0, ncol = ncol(X$X1) + ncol(X$X2)),
+            lambdadf <- df2lambda(X = diag(rankMatrix(X$X1, method = 'qr') * rankMatrix(X$X2, method = 'qr')),
                                   df = args$df, lambda = args$lambda,
                                   dmat = K, weights = weights, XtX = XtX)
             ### </FIXME>
@@ -148,7 +135,7 @@ bl_lin_matrix <- function(blg, Xfun, args) {
             cf <- lapply(bm, function(x) x$model)
             if(!is.null(newdata)) {
                 index <- NULL
-                X <- newX(newdata)$X
+                X <- newX(newdata, prediction = TRUE)$X
             }
             ncfprod <- function(b)
                 as.vector(as(tcrossprod(X$X1 %*% b, X$X2), "matrix"))

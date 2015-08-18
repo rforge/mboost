@@ -65,7 +65,7 @@
 
     Check that reverse dependencies don't break.
 
-    Ftp source package to CRAN or use web form at http://xmpalantir.wu.ac.at/cransubmit/.
+    Use web form at http://xmpalantir.wu.ac.at/cransubmit/.
 
     Merge changes to R code or documentation to pkg/mboostDevel/
         cd pkg/mboostDevel/R
@@ -91,8 +91,7 @@
     Add a new section "NEWS in X.Y-series" to /man/mboost_package.Rd
       and explain the most important changes there.
 
-    R CMD build --resave-data --compact-vignettes pkg/mboostDevel
-    R CMD check --as-cran mboostDevel_XXX.tar.gz
+    R CMD build --resave-data --compact-vignettes pkg/mboostDevel && R CMD check --as-cran --run-donttest mboostDevel_XXX.tar.gz
 
     If differences to .Rout.save occure:
        - Manually check differences
@@ -132,7 +131,7 @@
 
     Check that reverse dependencies don't break.
 
-    Ftp source package to CRAN or use web form at http://xmpalantir.wu.ac.at/cransubmit/.
+    Use web form at http://xmpalantir.wu.ac.at/cransubmit/.
 
     Merge changes to pkg/mboostPatch/
        (NOTE: This should not work that way as we didn't commit the name changes mboostDevel --> mboost.

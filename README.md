@@ -61,3 +61,5 @@ For issues, bugs, feature requests etc. please use the [GitHub Issues](https://g
   However, currently these builds often don't succeed and furthermore are only available
   for recent versions of R.
 
+[inst]: inst
+
