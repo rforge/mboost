@@ -228,11 +228,11 @@ X_bbs <- function(mf, vary, args) {
     stopifnot(is.data.frame(mf))
     mm <- lapply(which(colnames(mf) != vary), function(i) {
         if (!args$cyclic) {
-            X <- bsplines(mf[[i]],
-                          knots = args$knots[[i]]$knots,
-                          boundary.knots = args$knots[[i]]$boundary.knots,
-                          degree = args$degree,
-                          Ts_constraint = args$Ts_constraint,
+        X <- bsplines(mf[[i]],
+                      knots = args$knots[[i]]$knots,
+                      boundary.knots = args$knots[[i]]$boundary.knots,
+                      degree = args$degree,
+                      Ts_constraint = args$Ts_constraint,
                           deriv = args$deriv, extrapolation = args$prediction)
         } else { ## if cyclic spline
             X <- cbs(mf[[i]],
@@ -714,17 +714,7 @@ bl_lin <- function(blg, Xfun, args) {
 
     newX <- function(newdata = NULL, prediction = FALSE) {
         if (!is.null(newdata)) {
-            if (!all(names(blg) %in% names(newdata)))
-                stop("Variable(s) missing in ", sQuote("newdata"), ":\n\t",
-                     names(blg)[!names(blg) %in% names(newdata)])
-            if (!all(class(newdata) == class(mf)))
-                stop(sQuote("newdata"),
-                     " must have the same class as the original data:\n\t",
-                     class(mf))
-            nm <- names(blg)
-            if (any(duplicated(nm)))  ## removes duplicates
-                nm <- unique(nm)
-            mf <- newdata[, nm, drop = FALSE]
+            mf <- check_newdata(newdata, blg, mf)
         }
         ## this argument is currently only used in X_bbs --> bsplines
         args$prediction <- prediction
@@ -806,15 +796,13 @@ bl_lin <- function(blg, Xfun, args) {
         ### prepare for computing predictions
         predict <- function(bm, newdata = NULL, aggregate = c("sum", "cumsum", "none")) {
             cf <- sapply(bm, coef)
-            if (!is.matrix(cf)) cf <- matrix(cf, nrow = 1)
+            if (!is.matrix(cf))
+                cf <- matrix(cf, nrow = 1)
             if(!is.null(newdata)) {
                 index <- NULL
-                nm <- names(blg)
-                if (any(duplicated(nm)))  ## removes duplicates
-                    nm <- unique(nm)
-                newdata <- newdata[,nm, drop = FALSE]
-                ### option
-                if (nrow(newdata) > options("mboost_indexmin")[[1]]) {
+                ## Use sparse data represenation if data set is huge
+                ## and a data.frame
+                if (is.data.frame(newdata) && nrow(newdata) > options("mboost_indexmin")[[1]]) {
                     index <- get_index(newdata)
                     newdata <- newdata[index[[1]],,drop = FALSE]
                     index <- index[[2]]
@@ -829,7 +817,8 @@ bl_lin <- function(blg, Xfun, args) {
                                PACKAGE = "mboostDevel"), "matrix")
             },
             "none" = as(X %*% cf, "matrix"))
-            if (is.null(index)) return(pr[,,drop = FALSE])
+            if (is.null(index))
+                return(pr[ , , drop = FALSE])
             return(pr[index,,drop = FALSE])
         }
 

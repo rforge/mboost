@@ -1,20 +1,34 @@
 \name{NEWS}
 \title{News for Package 'mboost'}
 
+\section{Changes in mboost version 2.5-1 (2015-08-xx)}{
+  \subsection{Miscellaneous}{
+    \itemize{
+      \item New maintainer: Benjamin Hofner follows Torsten Hothorn as
+      maintainer.
+      \item Package \pkg{party} is now imported. \pkg{mboost} no longer
+      directly relies on unexported functions.
+      \item Improved checks for \code{newdata}: Warnings are no longer
+      issued if data has just different types of numeric values (i.e.,
+      integer vs. double).
+    }
+  }
+}
+
 \section{Changes in mboost version 2.5-0 (2015-08-13)}{
   \subsection{User-visible changes}{
     \itemize{
       \item Added documentation for \code{plot.mboost} function and moved
       documentation of \code{plot.glmboost} to the same help page.
       Resolves issue \href{https://github.com/hofnerb/mboost/issues/14}{#14}.
-      \item Better handling of errors in (single) folds of \code{cvrisk}:
-      results of folds without errors are used and a \code{warning} is
-      issued.
       \item \code{bbs} and \code{bmono} no longer allow data outside of
       the \code{boundary.knots} during model fitting.
       \item Predictions for \code{bbs} and \code{bmono} now use linear
       extrapolation (user request inspired by
       \code{mgcv::Predict.matrix.pspline.smooth}).
+      \item Better handling of errors in (single) folds of \code{cvrisk}:
+      results of folds without errors are used and a \code{warning} is
+      issued.
       \item Parallel computing via \code{mclapply}: Set
       \code{mc.preschedule = FALSE} per default.
       \item Added new option \code{options(mboost_check_df2lambda =
@@ -37,11 +51,10 @@
       Sarah Brockhaus).
       \item \file{inst/CITATION}: Added subheadings and
       tutorial paper.
-      
       \item Stopped computing the singular vectors in \code{df2lambda}
       as the singular values are sufficient and as
       \dQuote{computing the singular vectors is the slow part for large
-	matrices} (proposed by Fabian Scheipl).    
+	matrices} (proposed by Fabian Scheipl).
     }
   }
   \subsection{Bug-fixes}{
