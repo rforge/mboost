@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Version 2.1-2</title>
+    <title>Version 2.6-0</title>
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="">
-    <link rel="canonical" href="http://mboost.r-forge.r-project.org/2012/02/29/2.1-2/">
+    <link rel="canonical" href="http://mboost.r-forge.r-project.org/2016/03/11/2.6-0/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="http://mboost.r-forge.r-project.org/css/main.css">
@@ -64,17 +64,42 @@ hljs.initHighlightingOnLoad();
       <div class="post">
 
   <header class="post-header">
-    <h1>Version 2.1-2</h1>
-    <p class="meta">Feb 29, 2012</p>
+    <h1>Version 2.6-0</h1>
+    <p class="meta">Mar 11, 2016</p>
   </header>
 
   <article class="post-content">
-  <ul>
-<li> improved handling of missing values (throws warnings and fixed a bug
- that occurred for missings in the response) </li>
-<li> improved manual for the handling of contrasts in bols </li>
-<li> added tutorial vignette </li>
-<li> updated references </li>
+  <h2>User-visible changes</h2>
+<ul>
+<li> New maintainer: Benjamin Hofner follows Torsten Hothorn as
+ maintainer. </li>
+<li> Package party is now imported. mboost no longer directly relies on
+ unexported functions. </li>
+<li> Allow extrapolation for predictions if kronecker products, tensor
+ products or sums are used. Fixes #23. </li>
+<li> Development now hosted entirely on github as boost-R/mboost. </li>
+<li> Started using testthat. </li>
+</ul>
+<h2>Miscellaneous</h2>
+<ul>
+<li> Improved checks for newdata: Warnings are no longer issued if data
+ has just different types of numeric values (i.e., integer vs.
+ double). Resolves issue #17. </li>
+<li> Fixed CITATION by removing duplicated string 'R package version'
+ (spotted by Heidi Seibold). </li>
+<li> predict: Improve warning when length(offset) > 1. Closes issue #20. </li>
+<li> Added test coverage using package covr. </li>
+<li> Better error handling in cvrisk also for parallel processes. </li>
+<li> Suppress warning of rankMatrix. (Resolves issue #24). </li>
+<li> Stop exporting internal functions for FDboost. Use mboost_intern()
+ instead. Caution: Do not use this function. </li>
+</ul>
+<h2>Bug-fixes</h2>
+<ul>
+<li> Handling of missing values has been improved. Resolves issue #12. </li>
+<li> Minor bug fixed in vignette mboost_illustrations.Rnw. </li>
+<li> Throw an error if model cannot be fitted. Fixes issue #18. </li>
+<li> Fixed bug in bkronecker with dense matrices. Resolves issue #30. </li>
 </ul>
 
   </article>
