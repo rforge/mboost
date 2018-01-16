@@ -23,7 +23,7 @@ can be found in `r Citet(bib, "Hofner_Mayr_Robinzonov_2014")`.
 
 Boosting for generalised additive models with constraints is discussed in
 `r Citet(bib, "Hofner_Kneib_Hothorn_2015")`. Unbiased model selection in
-generalised additive models is developed in `r Citet(bib, "Hofner_Hothorn_Kneib_2015")`.
+generalised additive models is developed in `r Citet(bib, "Hofner+Hothorn+Kneib_2011")`.
 
 Applications in survival analysis are described in
 `r Citet(bib, "Hothorn:2006:Biostatistics:16344280")`,
