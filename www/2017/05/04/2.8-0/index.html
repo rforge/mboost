@@ -71,52 +71,55 @@ hljs.initHighlightingOnLoad();
   <article class="post-content">
   <h2>User-visible changes</h2>
 <ul>
-<li> Models with zero steps (i.e., models containing only the offset) can
- now be fitted. Furthermore, cross-validation can now also select a
- model without base-learners.  Fixes #64, #66, and #69. </li>
+<li> Models with zero steps (i.e., models containing only the
+offset) can now be fitted. Furthermore, cross-validation can
+now also select a model without base-learners.  Fixes #64, #66,
+and #69. </li>
 <li> Binomial now uses link functions by making use of make.link.
- Furthermore, an alternative implementation of Binomial models along
- the lines of the glm implementation can be used via Binomial(type =
- "glm"). Additionally, it works not only with a two-level factor but
- also with a two-column matrix containing the number of successes
- and number of failures.  Fixes #34, #63 and #65. </li>
-<li> Added new base-learner bkernel for kernel boosting as described in
+Furthermore, an alternative implementation of Binomial models
+along the lines of the glm implementation can be used via
+Binomial(type = "glm"). Additionally, it works not only with a
+two-level factor but also with a two-column matrix containing
+the number of successes and number of failures.  Fixes #34, #63
+and #65. </li>
+<li> Added new base-learner bkernel for kernel boosting as described
+in
 
- S. Friedrichs, J. Manitz, P. Burger, C.I. Amos, A. Risch, J.C.
- Chang-Claude, H.E. Wichmann, T. Kneib, H. Bickeboeller, and B.
- Hofner (2017), Pathway-Based Kernel Boosting for the Analysis of
- Genome-Wide Association Studies.  _Computational and Mathematical
- Methods in Medicine_. 2017(6742763), 1-17.
- \Sexpr[results=rd,stage=build]{tools:::Rd_expr_doi("10.1155/2017/6742763")}. </li>
+S. Friedrichs, J. Manitz, P. Burger, C.I. Amos, A. Risch, J.C.
+Chang-Claude, H.E. Wichmann, T. Kneib, H. Bickeboeller, and B.
+Hofner (2017), Pathway-Based Kernel Boosting for the Analysis
+of Genome-Wide Association Studies.  _Computational and
+Mathematical Methods in Medicine_. 2017(6742763), 1-17.
+\Sexpr[results=rd,stage=build]{tools:::Rd_expr_doi("10.1155/2017/6742763")}. </li>
 <li> Removed check if df2lambda is stable. Hence,
- options(mboost_check_df2lambda) (introduced in mboost 2.5-0) is no
- longer used.  Closes #26. </li>
+options(mboost_check_df2lambda) (introduced in mboost 2.5-0) is
+no longer used.  Closes #26. </li>
 </ul>
 <h2>Miscellaneous</h2>
 <ul>
 <li> Added Andreas Mayr as contributor. </li>
 <li> Updated references and added reference to citation("mboost"). </li>
-<li> Fixed code of India example, which can be used to reproduce the data
- analysis presented in
+<li> Fixed code of India example, which can be used to reproduce the
+data analysis presented in
 
- N. Fenske, T. Kneib, and T. Hothorn (2011), Identifying risk
- factors for severe childhood malnutrition by boosting additive
- quantile regression.  _Journal of the American Statistical
- Association_, *106*:494-510.
+N. Fenske, T. Kneib, and T. Hothorn (2011), Identifying risk
+factors for severe childhood malnutrition by boosting additive
+quantile regression.  _Journal of the American Statistical
+Association_, *106*:494-510.
 
- (see system.file("India_quantiles.R", package = "mboost")) </li>
+(see system.file("India_quantiles.R", package = "mboost")) </li>
 <li> Fixed package citation. </li>
 <li> Register C routines to make CRAN happy (again).  Fixes #77. </li>
 </ul>
 <h2>Bug-fixes</h2>
 <ul>
 <li> Make sure that family = Multinomial is only used with Kronecker
- product base-learners. Fixes #46. </li>
+product base-learners. Fixes #46. </li>
 <li> Use argument PACKAGE in .Call.  Fixes #72. </li>
-<li> If center is specified as boolean value in bols, we now throw an
- error.  Fixes #70. </li>
-<li> Fixed AUC family which expected fit to be equal to a constant in the
- first iteration. </li>
+<li> If center is specified as boolean value in bols, we now throw
+an error.  Fixes #70. </li>
+<li> Fixed AUC family which expected fit to be equal to a constant
+in the first iteration. </li>
 <li> Check for new data, e.g., in predict, was broken.  Fixes #68. </li>
 <li> Make sure that newdata is discarded in fitted.  Fixes #76. </li>
 </ul>
@@ -140,7 +143,7 @@ hljs.initHighlightingOnLoad();
 
     <A class="page-link" HREF=http://CRAN.R-project.org/web/packages/mboost/mboost.pdf>Manual</A>
     
-    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.8-1.tar.gz>Source</A>
+    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.9-5.tar.gz>Source</A>
 
     <A class="page-link" HREF=https://r-forge.r-project.org/projects/mboost>Development</A>
 

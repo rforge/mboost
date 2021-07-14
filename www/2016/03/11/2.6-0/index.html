@@ -72,34 +72,37 @@ hljs.initHighlightingOnLoad();
   <h2>User-visible changes</h2>
 <ul>
 <li> New maintainer: Benjamin Hofner follows Torsten Hothorn as
- maintainer. </li>
-<li> Package party is now imported. mboost no longer directly relies on
- unexported functions. </li>
-<li> Allow extrapolation for predictions if kronecker products, tensor
- products or sums are used. Fixes #23. </li>
+maintainer. </li>
+<li> Package party is now imported. mboost no longer directly relies
+on unexported functions. </li>
+<li> Allow extrapolation for predictions if kronecker products,
+tensor products or sums are used. Fixes #23. </li>
 <li> Development now hosted entirely on github as boost-R/mboost. </li>
 <li> Started using testthat. </li>
 </ul>
 <h2>Miscellaneous</h2>
 <ul>
-<li> Improved checks for newdata: Warnings are no longer issued if data
- has just different types of numeric values (i.e., integer vs.
- double). Resolves issue #17. </li>
-<li> Fixed CITATION by removing duplicated string 'R package version'
- (spotted by Heidi Seibold). </li>
-<li> predict: Improve warning when length(offset) > 1. Closes issue #20. </li>
+<li> Improved checks for newdata: Warnings are no longer issued if
+data has just different types of numeric values (i.e., integer
+vs. double). Resolves issue #17. </li>
+<li> Fixed CITATION by removing duplicated string 'R package
+version' (spotted by Heidi Seibold). </li>
+<li> predict: Improve warning when length(offset) > 1. Closes issue
+#20. </li>
 <li> Added test coverage using package covr. </li>
 <li> Better error handling in cvrisk also for parallel processes. </li>
 <li> Suppress warning of rankMatrix. (Resolves issue #24). </li>
-<li> Stop exporting internal functions for FDboost. Use mboost_intern()
- instead. Caution: Do not use this function. </li>
+<li> Stop exporting internal functions for FDboost. Use
+mboost_intern() instead. Caution: Do not use this function. </li>
 </ul>
 <h2>Bug-fixes</h2>
 <ul>
-<li> Handling of missing values has been improved. Resolves issue #12. </li>
+<li> Handling of missing values has been improved. Resolves issue
+#12. </li>
 <li> Minor bug fixed in vignette mboost_illustrations.Rnw. </li>
 <li> Throw an error if model cannot be fitted. Fixes issue #18. </li>
-<li> Fixed bug in bkronecker with dense matrices. Resolves issue #30. </li>
+<li> Fixed bug in bkronecker with dense matrices. Resolves issue
+#30. </li>
 </ul>
 
   </article>
@@ -121,7 +124,7 @@ hljs.initHighlightingOnLoad();
 
     <A class="page-link" HREF=http://CRAN.R-project.org/web/packages/mboost/mboost.pdf>Manual</A>
     
-    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.8-1.tar.gz>Source</A>
+    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.9-5.tar.gz>Source</A>
 
     <A class="page-link" HREF=https://r-forge.r-project.org/projects/mboost>Development</A>
 

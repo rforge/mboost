@@ -71,44 +71,46 @@ hljs.initHighlightingOnLoad();
   <article class="post-content">
   <h2>User-visible changes</h2>
 <ul>
-<li> New Cindex family to optimize survival models w.r.t. the concordance
- index.  Fixes #53. </li>
-<li> Added function varimp to extract variable importance.  A dedicated
- plot function exists (plot(varimp())). Code was provided by Tobias
- Kuehn and Almond Stoecker.  See pull request #29. </li>
+<li> New Cindex family to optimize survival models w.r.t. the
+concordance index.  Fixes #53. </li>
+<li> Added function varimp to extract variable importance.  A
+dedicated plot function exists (plot(varimp())). Code was
+provided by Tobias Kuehn and Almond Stoecker.  See pull request
+#29. </li>
 <li> Improved plot function for boosting models:
 
-  * plot fails earlier in case of multiple levelplots, i.e., maps
-     (thanks to Mikko Korpela).  See pull request #39.
+  • plot fails earlier in case of multiple levelplots, i.e.,
+    maps (thanks to Mikko Korpela).  See pull request #39.
 
-  * Provide sensible defaults for xlab and ylab and allow
-     user-specified axis labels for bi- and multivariate plots.
-     Fixes #51.
+  • Provide sensible defaults for xlab and ylab and allow
+    user-specified axis labels for bi- and multivariate plots.
+    Fixes #51.
 
-  * Export plot functions (plot.glmboost, plot.mboost, lines.mboost,
-     plot.varimp and plot.cvrisk) for better usability and
-     visibility. </li>
+  • Export plot functions (plot.glmboost, plot.mboost,
+    lines.mboost, plot.varimp and plot.cvrisk) for better
+    usability and visibility. </li>
 </ul>
 <h2>Miscellaneous</h2>
 <ul>
-<li> Updated manual regarding the usage of families and clarified the
- usage of argument qoffset. </li>
+<li> Updated manual regarding the usage of families and clarified
+the usage of argument qoffset. </li>
 <li> Updated manual for base-learners:
 
-  * Highlight that x should be centered if bols(x, intercept =
-     FALSE) is used.
+  • Highlight that x should be centered if bols(x, intercept =
+    FALSE) is used.
 
-  * Discourage using bbs(, constraint != "none"); Preferably use
-     bmono for constrained effect estimates.  Fixes #36. </li>
-<li> Improved vignettes (thanks to Mikko Korpela).  See pull request #38. </li>
+  • Discourage using bbs(, constraint != "none"); Preferably
+    use bmono for constrained effect estimates.  Fixes #36. </li>
+<li> Improved vignettes (thanks to Mikko Korpela).  See pull request
+#38. </li>
 </ul>
 <h2>Bug-fixes</h2>
 <ul>
 <li> Solve potential problem with IPCweights(). Fixes #54. </li>
 <li> Drop unobserved factor levels from bols(). Fixes #47. </li>
 <li> Adapt btree to changes introduced in package party.  Fixes #58. </li>
-<li> Improved cvrisk to be more robust in various use cases (thanks to
- Mikko Korpela).  See pull request #42. </li>
+<li> Improved cvrisk to be more robust in various use cases (thanks
+to Mikko Korpela).  See pull request #42. </li>
 <li> Be more careful regarding namespace scoping rules.  Fixes #45. </li>
 </ul>
 
@@ -131,7 +133,7 @@ hljs.initHighlightingOnLoad();
 
     <A class="page-link" HREF=http://CRAN.R-project.org/web/packages/mboost/mboost.pdf>Manual</A>
     
-    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.8-1.tar.gz>Source</A>
+    <A class="page-link" HREF=http://CRAN.R-project.org/src/contrib/mboost_2.9-5.tar.gz>Source</A>
 
     <A class="page-link" HREF=https://r-forge.r-project.org/projects/mboost>Development</A>
 
